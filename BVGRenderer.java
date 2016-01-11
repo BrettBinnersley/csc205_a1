@@ -3,6 +3,17 @@
    BVG Renderer
 
    B. Bird - 01/03/2016
+
+  -------------------------------
+  -------------------------------
+
+	Edit By: Brett Binnersley
+	V00776751
+	Csc 205
+	2D Graphics (2nd year intro)
+
+	Edited for the point of this course.
+
 */
 
 import java.awt.Color;
@@ -13,32 +24,48 @@ public class BVGRenderer implements BVGRendererBase {
 		System.out.println("CreateCanvas " + dimensions + background_colour + scale_factor);
 		this.width = dimensions.x;
 		this.height = dimensions.y;
-		canvas = new PNGCanvas(width,height);
-		for (int y = 0; y < height; y++)
-			for (int x = 0; x < width; x++)
+		canvas = new PNGCanvas(width, height);
+		for (int y = 0; y < height; ++y)
+			for (int x = 0; x < width; ++x)
 				canvas.SetPixel(x,y, background_colour);
-		
 	}
-	public void RenderLine(Point endpoint1, Point endpoint2, Color colour, int thickness){
-		System.out.println("RenderLine " + endpoint1 + endpoint2 + colour + thickness);
+
+	public void RenderLine(Point endpoint1, Point endpoint2, Color colour, int thickness) {
+		// WORKS WITHOUT LINE_LENGTH
+		// WORKS WITH FLOATING POINT NUMBERS. SWITCH LATER
+
+		Point iterpoint = endpoint1;
+		final int length_x = endpoint1.x - endpoint2.x;
+		final int length_y = endpoint1.y - endpoint2.y;
+		while (iterpoint.x != endpoint2.x && iterpoint.y != endpoint2.y) {
+			canvas.SetPixel(iterpoint.x,iterpoint.y, colour);
+			iterpoint.x += (endpoint1.x - endpoint2.x) / length_x;
+			iterpoint.y += (endpoint1.y - endpoint2.y) / length_y;
+		}
 	}
-	public void RenderCircle(Point center, int radius, Color line_colour, int line_thickness){
+
+	public void RenderCircle(Point center, int radius, Color line_colour, int line_thickness) {
 		System.out.println("RenderCircle " + center + radius + line_colour + line_thickness);
 	}
-	public void RenderFilledCircle(Point center, int radius, Color line_colour, int line_thickness, Color fill_colour){
+
+	public void RenderFilledCircle(Point center, int radius, Color line_colour, int line_thickness, Color fill_colour) {
 		System.out.println("RenderFilledCircle " + center + radius + line_colour + line_thickness + fill_colour);
 	}
-	public void RenderTriangle(Point point1, Point point2, Point point3, Color line_colour, int line_thickness, Color fill_colour){
+
+	public void RenderTriangle(Point point1, Point point2, Point point3, Color line_colour,
+														 int line_thickness, Color fill_colour) {
 		System.out.println("RenderTriangle " + point1 + point2 + point3 + line_colour + line_thickness + fill_colour);
 	}
-	public void RenderGradientTriangle(Point point1, Point point2, Point point3, Color line_colour, int line_thickness, Color colour1, Color colour2, Color colour3){
+
+	public void RenderGradientTriangle(Point point1, Point point2, Point point3, Color line_colour,
+																		 int line_thickness, Color colour1, Color colour2, Color colour3) {
 		System.out.println("RenderGradientTriangle " + point1 + point2 + point3 + line_colour + line_thickness + colour1 + colour2 + colour3);
 	}
-	
+
 	public void SaveImage(String filename){
 		canvas.SaveImage(filename);
 	}
-	
+
 	private int width,height;
 	private PNGCanvas canvas;
 }
