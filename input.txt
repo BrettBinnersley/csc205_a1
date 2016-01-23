@@ -1,8 +1,5 @@
 Canvas dimensions=(100, 100) background_colour=(64,64,64)
 
-Line from=(10, 10) to=(50,10) colour=(255,128,128) thickness=1
-Line from=(10, 10) to=(50,50) colour=(128,255,128) thickness=3
-Line from=(10, 10) to=(10,50) colour=(128,128,255) thickness=5
-Line from=(90, 10) to=(80,90) colour=(255,0,0) thickness=2
-Line from=(90, 10) to=(20,20) colour=(0,0,255) thickness=2
-Line from=(10, 90) to=(50,80) colour=(0,255,0) thickness=2
+Circle center=(10, 10) radius=5 line_colour=(255,128,128) line_thickness=2
+FilledCircle center=(50, 50) radius=40 line_colour=(255,255,255) line_thickness=1 fill_colour=(255,255,0)
+Circle center=(50, 50) radius=10 line_colour=(0,0,0) line_thickness=2

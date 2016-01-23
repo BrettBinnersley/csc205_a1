@@ -70,15 +70,80 @@ public class BVGRenderer implements BVGRendererBase {
   	}
 	}
 
-	public void RenderCircle(Point center, int radius, Color line_colour, int line_thickness){
-		System.out.println("RenderCircle " + center + radius + line_colour + line_thickness);
+	public void RenderCircle(Point center, int radius, Color colour, int line_thickness){
+		System.out.println("RenderCircle " + center + radius + colour + line_thickness);
+		// Shorter var names
+		int xr = center.x;
+		int yr = center.y;
+
+		// vars for iterations.
+		int x = radius;
+		int y = 0;
+		int dec = 1 - x;
+
+		// Draw octrant parts
+		while ( y <= x ) {
+			canvas.SetPixel(xr+x, yr+y, colour);
+			canvas.SetPixel(xr-x, yr+y, colour);
+			canvas.SetPixel(xr+x, yr-y, colour);
+			canvas.SetPixel(xr-x, yr-y, colour);
+			canvas.SetPixel(xr+y, yr+x, colour);
+			canvas.SetPixel(xr-y, yr+x, colour);
+			canvas.SetPixel(xr+y, yr-x, colour);
+			canvas.SetPixel(xr-y, yr-x, colour);
+			++y;
+			if (dec <= 0) {
+				dec += 2*y + 1;
+			} else {
+				--x;
+				dec += 2 * (y - x) + 1;
+			}
+		}
 	}
+
 	public void RenderFilledCircle(Point center, int radius, Color line_colour, int line_thickness, Color fill_colour){
 		System.out.println("RenderFilledCircle " + center + radius + line_colour + line_thickness + fill_colour);
+
+		// vars for iterations.
+		int x = radius;
+		int y = 0;
+		int dec = 1 - x;
+
+		// Draw octrant parts. Same code as above, except we draw lines between the points on the circle.
+		while ( y <= x ) {
+		  for (int i = center.x - x; i <= center.x + x; ++i) {
+        canvas.SetPixel(i, center.y + y, fill_colour);
+        canvas.SetPixel(i, center.y - y, fill_colour);
+    	}
+      for (int i = center.x - y; i <= center.x + y; ++i) {
+        canvas.SetPixel(i, center.y + x, fill_colour);
+        canvas.SetPixel(i, center.y - x, fill_colour);
+      }
+			++y;
+			if (dec <= 0) {
+				dec += 2*y + 1;
+			} else {
+				--x;
+				dec += 2 * (y - x) + 1;
+			}
+		}
+
+		// Render outline with existing funtion.
+		RenderCircle(center, radius, line_colour, line_thickness);
 	}
+
 	public void RenderTriangle(Point point1, Point point2, Point point3, Color line_colour, int line_thickness, Color fill_colour){
 		System.out.println("RenderTriangle " + point1 + point2 + point3 + line_colour + line_thickness + fill_colour);
+		
+		// Find bounding box.
+		int boxLeft = Math.min(point1.x, Math.min(point2.x, point3.x));
+		int boxTop = Math.min(point1.y, Math.min(point2.y, point3.y));
+		int boxRight = Math.max(point1.x, Math.max(point2.x, point3.x));
+		int boxBottom = Math.max(point1.y, Math.max(point2.y, point3.y));
+
+		//
 	}
+
 	public void RenderGradientTriangle(Point point1, Point point2, Point point3, Color line_colour, int line_thickness, Color colour1, Color colour2, Color colour3){
 		System.out.println("RenderGradientTriangle " + point1 + point2 + point3 + line_colour + line_thickness + colour1 + colour2 + colour3);
 	}
