@@ -1,8 +1,12 @@
 /* BVGRenderer.java
-
    BVG Renderer
-
    B. Bird - 01/03/2016
+
+	 Edited by:
+	 Brett Binnersley
+	 V00776751
+
+	 This file has been edited for the purposes of our Csc205 Assignment 1.
 */
 
 import java.awt.Color;
@@ -193,9 +197,6 @@ public class BVGRenderer implements BVGRendererBase {
 					float a2 = GetArea(p, point3, point1);  // Color2 Size
 					float a3 = GetArea(p, point1, point2);  // Color3 Size
 					float totalArea = a1 + a2 + a3;
-
-
-					System.out.println("A: " + a1 + ',' + a2 + ',' + a3);
 
 					a1 = a1 / totalArea;  // % of color1 (out of 1)
 					a2 = a2 / totalArea;  // % of color1 (out of 1)

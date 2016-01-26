@@ -17,16 +17,16 @@ public class DrawBVG{
 		}
 		String input_filename = args[0];
 		String output_filename = args[1];
-		
-		
+
+
 		BVGRenderer r = new BVGRenderer();
 		BVGReader reader = new BVGReader(r);
 		if (!reader.ParseFile(input_filename)){
 			System.err.println("Unable to parse file");
 			return;
 		}
-		
+
 		r.SaveImage(output_filename);
-		
+
 	}
 }

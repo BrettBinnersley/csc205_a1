@@ -18,7 +18,7 @@ public class PNGCanvas{
 		this.height = height;
 		pixels = new Color[width][height];
 	}
-	
+
 	public Color GetPixel(int x, int y){
 		return pixels[x][y];
 	}
@@ -27,13 +27,13 @@ public class PNGCanvas{
 		//but Color objects are immutable.
 		pixels[x][y] = colour;
 	}
-	
+
 	public void SaveImage(String filename){
 		BufferedImage outputImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
 		for (int x = 0; x < width; x++)
 			for(int y = 0; y < height; y++)
 				outputImage.setRGB(x,y,pixels[x][y].getRGB());
-		
+
 		try{
 			ImageIO.write(outputImage, "png", new File(filename));
 		}catch(java.io.IOException e){
@@ -42,7 +42,7 @@ public class PNGCanvas{
 		}
 		System.err.printf("Wrote a %d by %d image\n",width,height);
 	}
-	
+
 	private int width, height;
 	private Color[][] pixels;
 }
